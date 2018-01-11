@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonyou.modules.stats.dao.NodeCommunicateDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yonyou.modules.stats.entity.NodeCommunicateEntity" id="nodeCommunicateMap">
+        <result property="id" column="id"/>
+        <result property="pk" column="pk"/>
+        <result property="userId" column="user_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="money" column="money"/>
+        <result property="communicateType" column="communicate_type"/>
+        <result property="communicateDate" column="communicate_date"/>
+        <result property="filepath" column="filepath"/>
+        <result property="note" column="note"/>
+        <result property="expense" column="expense"/>
+        <result property="valid" column="valid"/>
+        <result property="ts" column="ts"/>
+        <result property="tagContent" column="tag_content"/>
+        <result property="communicateStart" column="communicate_start"/>
+        <result property="communicateEnd" column="communicate_end"/>
+        <result property="category" column="category"/>
+        <result property="imagesystemtype" column="imagesystemtype"/>
+        <result property="overStandard" column="over_standard"/>
+        <result property="itemPk" column="item_pk"/>
+        <result property="itemName" column="item_name"/>
+        <result property="szitemPk" column="szitem_pk"/>
+        <result property="szitemName" column="szitem_name"/>
+        <result property="reductionAmount" column="reduction_amount"/>
+        <result property="reductionInfo" column="reduction_info"/>
+        <result property="reductionTime" column="reduction_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.yonyou.modules.stats.entity.NodeCommunicateEntity">
+		select * from node_communicate where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.yonyou.modules.stats.entity.NodeCommunicateEntity">
+		select * from node_communicate
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from node_communicate 
+	</select>
+	 
+	<insert id="save" parameterType="com.yonyou.modules.stats.entity.NodeCommunicateEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into node_communicate
+		(
+			`pk`, 
+			`user_id`, 
+			`phone_number`, 
+			`money`, 
+			`communicate_type`, 
+			`communicate_date`, 
+			`filepath`, 
+			`note`, 
+			`expense`, 
+			`valid`, 
+			`ts`, 
+			`tag_content`, 
+			`communicate_start`, 
+			`communicate_end`, 
+			`category`, 
+			`imagesystemtype`, 
+			`over_standard`, 
+			`item_pk`, 
+			`item_name`, 
+			`szitem_pk`, 
+			`szitem_name`, 
+			`reduction_amount`, 
+			`reduction_info`, 
+			`reduction_time`
+		)
+		values
+		(
+			#{pk}, 
+			#{userId}, 
+			#{phoneNumber}, 
+			#{money}, 
+			#{communicateType}, 
+			#{communicateDate}, 
+			#{filepath}, 
+			#{note}, 
+			#{expense}, 
+			#{valid}, 
+			#{ts}, 
+			#{tagContent}, 
+			#{communicateStart}, 
+			#{communicateEnd}, 
+			#{category}, 
+			#{imagesystemtype}, 
+			#{overStandard}, 
+			#{itemPk}, 
+			#{itemName}, 
+			#{szitemPk}, 
+			#{szitemName}, 
+			#{reductionAmount}, 
+			#{reductionInfo}, 
+			#{reductionTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yonyou.modules.stats.entity.NodeCommunicateEntity">
+		update node_communicate 
+		<set>
+			<if test="pk != null">`pk` = #{pk}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="phoneNumber != null">`phone_number` = #{phoneNumber}, </if>
+			<if test="money != null">`money` = #{money}, </if>
+			<if test="communicateType != null">`communicate_type` = #{communicateType}, </if>
+			<if test="communicateDate != null">`communicate_date` = #{communicateDate}, </if>
+			<if test="filepath != null">`filepath` = #{filepath}, </if>
+			<if test="note != null">`note` = #{note}, </if>
+			<if test="expense != null">`expense` = #{expense}, </if>
+			<if test="valid != null">`valid` = #{valid}, </if>
+			<if test="ts != null">`ts` = #{ts}, </if>
+			<if test="tagContent != null">`tag_content` = #{tagContent}, </if>
+			<if test="communicateStart != null">`communicate_start` = #{communicateStart}, </if>
+			<if test="communicateEnd != null">`communicate_end` = #{communicateEnd}, </if>
+			<if test="category != null">`category` = #{category}, </if>
+			<if test="imagesystemtype != null">`imagesystemtype` = #{imagesystemtype}, </if>
+			<if test="overStandard != null">`over_standard` = #{overStandard}, </if>
+			<if test="itemPk != null">`item_pk` = #{itemPk}, </if>
+			<if test="itemName != null">`item_name` = #{itemName}, </if>
+			<if test="szitemPk != null">`szitem_pk` = #{szitemPk}, </if>
+			<if test="szitemName != null">`szitem_name` = #{szitemName}, </if>
+			<if test="reductionAmount != null">`reduction_amount` = #{reductionAmount}, </if>
+			<if test="reductionInfo != null">`reduction_info` = #{reductionInfo}, </if>
+			<if test="reductionTime != null">`reduction_time` = #{reductionTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from node_communicate where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from node_communicate where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

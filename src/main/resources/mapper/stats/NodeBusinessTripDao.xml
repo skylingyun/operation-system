@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonyou.modules.stats.dao.NodeBusinessTripDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yonyou.modules.stats.entity.NodeBusinessTripEntity" id="nodeBusinessTripMap">
+        <result property="id" column="id"/>
+        <result property="pk" column="pk"/>
+        <result property="userId" column="user_id"/>
+        <result property="money" column="money"/>
+        <result property="city" column="city"/>
+        <result property="zdyhead" column="zdyhead"/>
+        <result property="zdyheadvalue" column="zdyheadValue"/>
+        <result property="descript" column="descript"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="ts" column="ts"/>
+        <result property="billstatus" column="billstatus"/>
+        <result property="reimburstatus" column="reimburstatus"/>
+        <result property="pkBill" column="pk_bill"/>
+        <result property="dealdate" column="dealdate"/>
+        <result property="errormsg" column="errorMsg"/>
+        <result property="valid" column="valid"/>
+        <result property="tagpk" column="tagPk"/>
+        <result property="isClosed" column="is_closed"/>
+        <result property="budgetMoney" column="budget_money"/>
+        <result property="restMoney" column="rest_money"/>
+        <result property="usedMoney" column="used_money"/>
+        <result property="matter" column="matter"/>
+        <result property="costProject" column="cost_project"/>
+        <result property="djdl" column="djdl"/>
+        <result property="djlxbm" column="djlxbm"/>
+        <result property="billtype" column="billtype"/>
+        <result property="djlxpk" column="djlxpk"/>
+        <result property="defitem1" column="defitem1"/>
+        <result property="defitem2" column="defitem2"/>
+        <result property="defitem3" column="defitem3"/>
+        <result property="defitem4" column="defitem4"/>
+        <result property="defitem5" column="defitem5"/>
+        <result property="defitem6" column="defitem6"/>
+        <result property="defitem7" column="defitem7"/>
+        <result property="defitem8" column="defitem8"/>
+        <result property="defitem9" column="defitem9"/>
+        <result property="defitem10" column="defitem10"/>
+        <result property="assumeOrg" column="assume_org"/>
+        <result property="assumeDept" column="assume_dept"/>
+        <result property="defitem11" column="defitem11"/>
+        <result property="defitem12" column="defitem12"/>
+        <result property="defitem13" column="defitem13"/>
+        <result property="defitem14" column="defitem14"/>
+        <result property="defitem15" column="defitem15"/>
+        <result property="defitem16" column="defitem16"/>
+        <result property="defitem17" column="defitem17"/>
+        <result property="defitem18" column="defitem18"/>
+        <result property="defitem19" column="defitem19"/>
+        <result property="defitem20" column="defitem20"/>
+        <result property="overBudgetStatus" column="over_budget_status"/>
+        <result property="adminOrg" column="admin_org"/>
+        <result property="financeOrg" column="finance_org"/>
+        <result property="applyDept" column="apply_dept"/>
+        <result property="applyUser" column="apply_user"/>
+        <result property="billnum" column="billNum"/>
+        <result property="assignid" column="assignid"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.yonyou.modules.stats.entity.NodeBusinessTripEntity">
+		select * from node_business_trip where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.yonyou.modules.stats.entity.NodeBusinessTripEntity">
+		select * from node_business_trip
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from node_business_trip 
+	</select>
+	 
+	<insert id="save" parameterType="com.yonyou.modules.stats.entity.NodeBusinessTripEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into node_business_trip
+		(
+			`pk`, 
+			`user_id`, 
+			`money`, 
+			`city`, 
+			`zdyhead`, 
+			`zdyheadValue`, 
+			`descript`, 
+			`start_date`, 
+			`end_date`, 
+			`ts`, 
+			`billstatus`, 
+			`reimburstatus`, 
+			`pk_bill`, 
+			`dealdate`, 
+			`errorMsg`, 
+			`valid`, 
+			`tagPk`, 
+			`is_closed`, 
+			`budget_money`, 
+			`rest_money`, 
+			`used_money`, 
+			`matter`, 
+			`cost_project`, 
+			`djdl`, 
+			`djlxbm`, 
+			`billtype`, 
+			`djlxpk`, 
+			`defitem1`, 
+			`defitem2`, 
+			`defitem3`, 
+			`defitem4`, 
+			`defitem5`, 
+			`defitem6`, 
+			`defitem7`, 
+			`defitem8`, 
+			`defitem9`, 
+			`defitem10`, 
+			`assume_org`, 
+			`assume_dept`, 
+			`defitem11`, 
+			`defitem12`, 
+			`defitem13`, 
+			`defitem14`, 
+			`defitem15`, 
+			`defitem16`, 
+			`defitem17`, 
+			`defitem18`, 
+			`defitem19`, 
+			`defitem20`, 
+			`over_budget_status`, 
+			`admin_org`, 
+			`finance_org`, 
+			`apply_dept`, 
+			`apply_user`, 
+			`billNum`, 
+			`assignid`
+		)
+		values
+		(
+			#{pk}, 
+			#{userId}, 
+			#{money}, 
+			#{city}, 
+			#{zdyhead}, 
+			#{zdyheadvalue}, 
+			#{descript}, 
+			#{startDate}, 
+			#{endDate}, 
+			#{ts}, 
+			#{billstatus}, 
+			#{reimburstatus}, 
+			#{pkBill}, 
+			#{dealdate}, 
+			#{errormsg}, 
+			#{valid}, 
+			#{tagpk}, 
+			#{isClosed}, 
+			#{budgetMoney}, 
+			#{restMoney}, 
+			#{usedMoney}, 
+			#{matter}, 
+			#{costProject}, 
+			#{djdl}, 
+			#{djlxbm}, 
+			#{billtype}, 
+			#{djlxpk}, 
+			#{defitem1}, 
+			#{defitem2}, 
+			#{defitem3}, 
+			#{defitem4}, 
+			#{defitem5}, 
+			#{defitem6}, 
+			#{defitem7}, 
+			#{defitem8}, 
+			#{defitem9}, 
+			#{defitem10}, 
+			#{assumeOrg}, 
+			#{assumeDept}, 
+			#{defitem11}, 
+			#{defitem12}, 
+			#{defitem13}, 
+			#{defitem14}, 
+			#{defitem15}, 
+			#{defitem16}, 
+			#{defitem17}, 
+			#{defitem18}, 
+			#{defitem19}, 
+			#{defitem20}, 
+			#{overBudgetStatus}, 
+			#{adminOrg}, 
+			#{financeOrg}, 
+			#{applyDept}, 
+			#{applyUser}, 
+			#{billnum}, 
+			#{assignid}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yonyou.modules.stats.entity.NodeBusinessTripEntity">
+		update node_business_trip 
+		<set>
+			<if test="pk != null">`pk` = #{pk}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="money != null">`money` = #{money}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="zdyhead != null">`zdyhead` = #{zdyhead}, </if>
+			<if test="zdyheadvalue != null">`zdyheadValue` = #{zdyheadvalue}, </if>
+			<if test="descript != null">`descript` = #{descript}, </if>
+			<if test="startDate != null">`start_date` = #{startDate}, </if>
+			<if test="endDate != null">`end_date` = #{endDate}, </if>
+			<if test="ts != null">`ts` = #{ts}, </if>
+			<if test="billstatus != null">`billstatus` = #{billstatus}, </if>
+			<if test="reimburstatus != null">`reimburstatus` = #{reimburstatus}, </if>
+			<if test="pkBill != null">`pk_bill` = #{pkBill}, </if>
+			<if test="dealdate != null">`dealdate` = #{dealdate}, </if>
+			<if test="errormsg != null">`errorMsg` = #{errormsg}, </if>
+			<if test="valid != null">`valid` = #{valid}, </if>
+			<if test="tagpk != null">`tagPk` = #{tagpk}, </if>
+			<if test="isClosed != null">`is_closed` = #{isClosed}, </if>
+			<if test="budgetMoney != null">`budget_money` = #{budgetMoney}, </if>
+			<if test="restMoney != null">`rest_money` = #{restMoney}, </if>
+			<if test="usedMoney != null">`used_money` = #{usedMoney}, </if>
+			<if test="matter != null">`matter` = #{matter}, </if>
+			<if test="costProject != null">`cost_project` = #{costProject}, </if>
+			<if test="djdl != null">`djdl` = #{djdl}, </if>
+			<if test="djlxbm != null">`djlxbm` = #{djlxbm}, </if>
+			<if test="billtype != null">`billtype` = #{billtype}, </if>
+			<if test="djlxpk != null">`djlxpk` = #{djlxpk}, </if>
+			<if test="defitem1 != null">`defitem1` = #{defitem1}, </if>
+			<if test="defitem2 != null">`defitem2` = #{defitem2}, </if>
+			<if test="defitem3 != null">`defitem3` = #{defitem3}, </if>
+			<if test="defitem4 != null">`defitem4` = #{defitem4}, </if>
+			<if test="defitem5 != null">`defitem5` = #{defitem5}, </if>
+			<if test="defitem6 != null">`defitem6` = #{defitem6}, </if>
+			<if test="defitem7 != null">`defitem7` = #{defitem7}, </if>
+			<if test="defitem8 != null">`defitem8` = #{defitem8}, </if>
+			<if test="defitem9 != null">`defitem9` = #{defitem9}, </if>
+			<if test="defitem10 != null">`defitem10` = #{defitem10}, </if>
+			<if test="assumeOrg != null">`assume_org` = #{assumeOrg}, </if>
+			<if test="assumeDept != null">`assume_dept` = #{assumeDept}, </if>
+			<if test="defitem11 != null">`defitem11` = #{defitem11}, </if>
+			<if test="defitem12 != null">`defitem12` = #{defitem12}, </if>
+			<if test="defitem13 != null">`defitem13` = #{defitem13}, </if>
+			<if test="defitem14 != null">`defitem14` = #{defitem14}, </if>
+			<if test="defitem15 != null">`defitem15` = #{defitem15}, </if>
+			<if test="defitem16 != null">`defitem16` = #{defitem16}, </if>
+			<if test="defitem17 != null">`defitem17` = #{defitem17}, </if>
+			<if test="defitem18 != null">`defitem18` = #{defitem18}, </if>
+			<if test="defitem19 != null">`defitem19` = #{defitem19}, </if>
+			<if test="defitem20 != null">`defitem20` = #{defitem20}, </if>
+			<if test="overBudgetStatus != null">`over_budget_status` = #{overBudgetStatus}, </if>
+			<if test="adminOrg != null">`admin_org` = #{adminOrg}, </if>
+			<if test="financeOrg != null">`finance_org` = #{financeOrg}, </if>
+			<if test="applyDept != null">`apply_dept` = #{applyDept}, </if>
+			<if test="applyUser != null">`apply_user` = #{applyUser}, </if>
+			<if test="billnum != null">`billNum` = #{billnum}, </if>
+			<if test="assignid != null">`assignid` = #{assignid}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from node_business_trip where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from node_business_trip where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

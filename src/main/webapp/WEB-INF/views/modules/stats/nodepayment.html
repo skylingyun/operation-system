@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<#if shiro.hasPermission("nodepayment:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("nodepayment:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("nodepayment:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.pk" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.userId" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">借款金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.money" placeholder="借款金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">还款余额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.hkye" placeholder="还款余额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">还款状态</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.hkzt" placeholder="还款状态"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.descript" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">收支项目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.szxm" placeholder="收支项目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">项目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.project" placeholder="项目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.bankaccountkey" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.bankaccount" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.dealdate" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据状态</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.billstatus" placeholder="单据状态"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">nc单据pk</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.pkBill" placeholder="nc单据pk"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem1" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem2" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem3" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem4" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem5" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem6" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem7" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem8" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem9" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem10" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem11" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem12" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem13" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem14" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem15" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem16" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem17" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem18" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem19" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.defitem20" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.ts" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.valid" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.billtype" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.errormsg" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据类型pk</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.djlxpk" placeholder="单据类型pk"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">是否超预算</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.overBudgetStatus" placeholder="是否超预算"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">申请单pk</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.sqdpk" placeholder="申请单pk"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用承担单位</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.assumeOrg" placeholder="费用承担单位"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用承担部门</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.assumeDept" placeholder="费用承担部门"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">行政组织</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.adminOrg" placeholder="行政组织"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">财务组织</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.financeOrg" placeholder="财务组织"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">币种</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.currency" placeholder="币种"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">汇率</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.exchangeRate" placeholder="汇率"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">本币金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.localMoney" placeholder="本币金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">借款余额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.restMoney" placeholder="借款余额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">借款部门</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.loanDept" placeholder="借款部门"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">借款人</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.loanUser" placeholder="借款人"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">对公or对私</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.payType" placeholder="对公or对私"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">收款对象</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.reveiveType" placeholder="收款对象"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据编号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.billnum" placeholder="单据编号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">指派人id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodePayment.assignid" placeholder="指派人id"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/stats/nodepayment.js?_${.now?long}"></script>
+</body>
+</html>

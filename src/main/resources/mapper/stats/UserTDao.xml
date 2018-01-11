@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonyou.modules.stats.dao.UserTDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yonyou.modules.stats.entity.UserTEntity" id="userTMap">
+        <result property="id" column="id"/>
+        <result property="userid" column="userid"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="description" column="description"/>
+        <result property="birthday" column="birthday"/>
+        <result property="registerdate" column="registerdate"/>
+        <result property="location" column="location"/>
+        <result property="company" column="company"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="telnum" column="telnum"/>
+        <result property="avatar" column="avatar"/>
+        <result property="association" column="association"/>
+        <result property="deptpk" column="deptpk"/>
+        <result property="deptname" column="deptname"/>
+        <result property="userCode" column="user_code"/>
+        <result property="ts" column="ts"/>
+        <result property="dr" column="dr"/>
+        <result property="postpk" column="postpk"/>
+        <result property="postname" column="postname"/>
+        <result property="rankpk" column="rankpk"/>
+        <result property="rankname" column="rankname"/>
+        <result property="deptcode" column="deptcode"/>
+        <result property="personid" column="personId"/>
+        <result property="personname" column="personName"/>
+        <result property="orgpk" column="orgpk"/>
+        <result property="orgname" column="orgname"/>
+        <result property="financeorgid" column="financeOrgId"/>
+        <result property="financeorgname" column="financeOrgName"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.yonyou.modules.stats.entity.UserTEntity">
+		select * from user_t where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.yonyou.modules.stats.entity.UserTEntity">
+		select * from user_t
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from user_t 
+	</select>
+	 
+	<insert id="save" parameterType="com.yonyou.modules.stats.entity.UserTEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into user_t
+		(
+			`userid`, 
+			`user_name`, 
+			`password`, 
+			`description`, 
+			`birthday`, 
+			`registerdate`, 
+			`location`, 
+			`company`, 
+			`email`, 
+			`phone`, 
+			`telnum`, 
+			`avatar`, 
+			`association`, 
+			`deptpk`, 
+			`deptname`, 
+			`user_code`, 
+			`ts`, 
+			`dr`, 
+			`postpk`, 
+			`postname`, 
+			`rankpk`, 
+			`rankname`, 
+			`deptcode`, 
+			`personId`, 
+			`personName`, 
+			`orgpk`, 
+			`orgname`, 
+			`financeOrgId`, 
+			`financeOrgName`
+		)
+		values
+		(
+			#{userid}, 
+			#{userName}, 
+			#{password}, 
+			#{description}, 
+			#{birthday}, 
+			#{registerdate}, 
+			#{location}, 
+			#{company}, 
+			#{email}, 
+			#{phone}, 
+			#{telnum}, 
+			#{avatar}, 
+			#{association}, 
+			#{deptpk}, 
+			#{deptname}, 
+			#{userCode}, 
+			#{ts}, 
+			#{dr}, 
+			#{postpk}, 
+			#{postname}, 
+			#{rankpk}, 
+			#{rankname}, 
+			#{deptcode}, 
+			#{personid}, 
+			#{personname}, 
+			#{orgpk}, 
+			#{orgname}, 
+			#{financeorgid}, 
+			#{financeorgname}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yonyou.modules.stats.entity.UserTEntity">
+		update user_t 
+		<set>
+			<if test="userid != null">`userid` = #{userid}, </if>
+			<if test="userName != null">`user_name` = #{userName}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="birthday != null">`birthday` = #{birthday}, </if>
+			<if test="registerdate != null">`registerdate` = #{registerdate}, </if>
+			<if test="location != null">`location` = #{location}, </if>
+			<if test="company != null">`company` = #{company}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="telnum != null">`telnum` = #{telnum}, </if>
+			<if test="avatar != null">`avatar` = #{avatar}, </if>
+			<if test="association != null">`association` = #{association}, </if>
+			<if test="deptpk != null">`deptpk` = #{deptpk}, </if>
+			<if test="deptname != null">`deptname` = #{deptname}, </if>
+			<if test="userCode != null">`user_code` = #{userCode}, </if>
+			<if test="ts != null">`ts` = #{ts}, </if>
+			<if test="dr != null">`dr` = #{dr}, </if>
+			<if test="postpk != null">`postpk` = #{postpk}, </if>
+			<if test="postname != null">`postname` = #{postname}, </if>
+			<if test="rankpk != null">`rankpk` = #{rankpk}, </if>
+			<if test="rankname != null">`rankname` = #{rankname}, </if>
+			<if test="deptcode != null">`deptcode` = #{deptcode}, </if>
+			<if test="personid != null">`personId` = #{personid}, </if>
+			<if test="personname != null">`personName` = #{personname}, </if>
+			<if test="orgpk != null">`orgpk` = #{orgpk}, </if>
+			<if test="orgname != null">`orgname` = #{orgname}, </if>
+			<if test="financeorgid != null">`financeOrgId` = #{financeorgid}, </if>
+			<if test="financeorgname != null">`financeOrgName` = #{financeorgname}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from user_t where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from user_t where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonyou.modules.stats.dao.NodeExpenseDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yonyou.modules.stats.entity.NodeExpenseEntity" id="nodeExpenseMap">
+        <result property="id" column="id"/>
+        <result property="pk" column="pk"/>
+        <result property="userid" column="userid"/>
+        <result property="descript" column="descript"/>
+        <result property="expenseDate" column="expense_date"/>
+        <result property="money" column="money"/>
+        <result property="ts" column="ts"/>
+        <result property="djlxpk" column="djlxpk"/>
+        <result property="billstatus" column="billstatus"/>
+        <result property="billtypecode" column="billtypecode"/>
+        <result property="billtypename" column="billtypename"/>
+        <result property="pkBill" column="pk_bill"/>
+        <result property="dealdate" column="dealdate"/>
+        <result property="valid" column="valid"/>
+        <result property="zdyhead" column="zdyhead"/>
+        <result property="zdyheadvalue" column="zdyheadValue"/>
+        <result property="bankaccountkey" column="bankAccountKey"/>
+        <result property="bankaccount" column="bankAccount"/>
+        <result property="szitemkey" column="szitemKey"/>
+        <result property="szitemvalue" column="szitemValue"/>
+        <result property="requisitionkey" column="requisitionKey"/>
+        <result property="requisition" column="requisition"/>
+        <result property="errormsg" column="errorMsg"/>
+        <result property="defitem1" column="defitem1"/>
+        <result property="defitem2" column="defitem2"/>
+        <result property="defitem3" column="defitem3"/>
+        <result property="defitem4" column="defitem4"/>
+        <result property="defitem5" column="defitem5"/>
+        <result property="defitem6" column="defitem6"/>
+        <result property="defitem7" column="defitem7"/>
+        <result property="defitem8" column="defitem8"/>
+        <result property="defitem9" column="defitem9"/>
+        <result property="defitem10" column="defitem10"/>
+        <result property="sqdpk" column="sqdpk"/>
+        <result property="assumeOrg" column="assume_org"/>
+        <result property="assumeDept" column="assume_dept"/>
+        <result property="reductionAmount" column="reduction_amount"/>
+        <result property="reductionTime" column="reduction_time"/>
+        <result property="overStandard" column="over_standard"/>
+        <result property="reimbursePerson" column="reimburse_person"/>
+        <result property="agencyStatus" column="agency_status"/>
+        <result property="overBudgetStatus" column="over_budget_status"/>
+        <result property="payAmount1" column="pay_amount1"/>
+        <result property="payAmount2" column="pay_amount2"/>
+        <result property="adminOrg" column="admin_org"/>
+        <result property="financeOrg" column="finance_org"/>
+        <result property="reimburseDept" column="reimburse_dept"/>
+        <result property="currency" column="currency"/>
+        <result property="exchangeRate" column="exchange_rate"/>
+        <result property="localMoney" column="local_money"/>
+        <result property="restPayMoney" column="rest_pay_money"/>
+        <result property="userOrg" column="user_org"/>
+        <result property="payType" column="pay_type"/>
+        <result property="reveiveType" column="reveive_type"/>
+        <result property="billnum" column="billNum"/>
+        <result property="assignid" column="assignid"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.yonyou.modules.stats.entity.NodeExpenseEntity">
+		select * from node_expense where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.yonyou.modules.stats.entity.NodeExpenseEntity">
+		select * from node_expense
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from node_expense 
+	</select>
+	 
+	<insert id="save" parameterType="com.yonyou.modules.stats.entity.NodeExpenseEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into node_expense
+		(
+			`pk`, 
+			`userid`, 
+			`descript`, 
+			`expense_date`, 
+			`money`, 
+			`ts`, 
+			`djlxpk`, 
+			`billstatus`, 
+			`billtypecode`, 
+			`billtypename`, 
+			`pk_bill`, 
+			`dealdate`, 
+			`valid`, 
+			`zdyhead`, 
+			`zdyheadValue`, 
+			`bankAccountKey`, 
+			`bankAccount`, 
+			`szitemKey`, 
+			`szitemValue`, 
+			`requisitionKey`, 
+			`requisition`, 
+			`errorMsg`, 
+			`defitem1`, 
+			`defitem2`, 
+			`defitem3`, 
+			`defitem4`, 
+			`defitem5`, 
+			`defitem6`, 
+			`defitem7`, 
+			`defitem8`, 
+			`defitem9`, 
+			`defitem10`, 
+			`sqdpk`, 
+			`assume_org`, 
+			`assume_dept`, 
+			`reduction_amount`, 
+			`reduction_time`, 
+			`over_standard`, 
+			`reimburse_person`, 
+			`agency_status`, 
+			`over_budget_status`, 
+			`pay_amount1`, 
+			`pay_amount2`, 
+			`admin_org`, 
+			`finance_org`, 
+			`reimburse_dept`, 
+			`currency`, 
+			`exchange_rate`, 
+			`local_money`, 
+			`rest_pay_money`, 
+			`user_org`, 
+			`pay_type`, 
+			`reveive_type`, 
+			`billNum`, 
+			`assignid`
+		)
+		values
+		(
+			#{pk}, 
+			#{userid}, 
+			#{descript}, 
+			#{expenseDate}, 
+			#{money}, 
+			#{ts}, 
+			#{djlxpk}, 
+			#{billstatus}, 
+			#{billtypecode}, 
+			#{billtypename}, 
+			#{pkBill}, 
+			#{dealdate}, 
+			#{valid}, 
+			#{zdyhead}, 
+			#{zdyheadvalue}, 
+			#{bankaccountkey}, 
+			#{bankaccount}, 
+			#{szitemkey}, 
+			#{szitemvalue}, 
+			#{requisitionkey}, 
+			#{requisition}, 
+			#{errormsg}, 
+			#{defitem1}, 
+			#{defitem2}, 
+			#{defitem3}, 
+			#{defitem4}, 
+			#{defitem5}, 
+			#{defitem6}, 
+			#{defitem7}, 
+			#{defitem8}, 
+			#{defitem9}, 
+			#{defitem10}, 
+			#{sqdpk}, 
+			#{assumeOrg}, 
+			#{assumeDept}, 
+			#{reductionAmount}, 
+			#{reductionTime}, 
+			#{overStandard}, 
+			#{reimbursePerson}, 
+			#{agencyStatus}, 
+			#{overBudgetStatus}, 
+			#{payAmount1}, 
+			#{payAmount2}, 
+			#{adminOrg}, 
+			#{financeOrg}, 
+			#{reimburseDept}, 
+			#{currency}, 
+			#{exchangeRate}, 
+			#{localMoney}, 
+			#{restPayMoney}, 
+			#{userOrg}, 
+			#{payType}, 
+			#{reveiveType}, 
+			#{billnum}, 
+			#{assignid}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yonyou.modules.stats.entity.NodeExpenseEntity">
+		update node_expense 
+		<set>
+			<if test="pk != null">`pk` = #{pk}, </if>
+			<if test="userid != null">`userid` = #{userid}, </if>
+			<if test="descript != null">`descript` = #{descript}, </if>
+			<if test="expenseDate != null">`expense_date` = #{expenseDate}, </if>
+			<if test="money != null">`money` = #{money}, </if>
+			<if test="ts != null">`ts` = #{ts}, </if>
+			<if test="djlxpk != null">`djlxpk` = #{djlxpk}, </if>
+			<if test="billstatus != null">`billstatus` = #{billstatus}, </if>
+			<if test="billtypecode != null">`billtypecode` = #{billtypecode}, </if>
+			<if test="billtypename != null">`billtypename` = #{billtypename}, </if>
+			<if test="pkBill != null">`pk_bill` = #{pkBill}, </if>
+			<if test="dealdate != null">`dealdate` = #{dealdate}, </if>
+			<if test="valid != null">`valid` = #{valid}, </if>
+			<if test="zdyhead != null">`zdyhead` = #{zdyhead}, </if>
+			<if test="zdyheadvalue != null">`zdyheadValue` = #{zdyheadvalue}, </if>
+			<if test="bankaccountkey != null">`bankAccountKey` = #{bankaccountkey}, </if>
+			<if test="bankaccount != null">`bankAccount` = #{bankaccount}, </if>
+			<if test="szitemkey != null">`szitemKey` = #{szitemkey}, </if>
+			<if test="szitemvalue != null">`szitemValue` = #{szitemvalue}, </if>
+			<if test="requisitionkey != null">`requisitionKey` = #{requisitionkey}, </if>
+			<if test="requisition != null">`requisition` = #{requisition}, </if>
+			<if test="errormsg != null">`errorMsg` = #{errormsg}, </if>
+			<if test="defitem1 != null">`defitem1` = #{defitem1}, </if>
+			<if test="defitem2 != null">`defitem2` = #{defitem2}, </if>
+			<if test="defitem3 != null">`defitem3` = #{defitem3}, </if>
+			<if test="defitem4 != null">`defitem4` = #{defitem4}, </if>
+			<if test="defitem5 != null">`defitem5` = #{defitem5}, </if>
+			<if test="defitem6 != null">`defitem6` = #{defitem6}, </if>
+			<if test="defitem7 != null">`defitem7` = #{defitem7}, </if>
+			<if test="defitem8 != null">`defitem8` = #{defitem8}, </if>
+			<if test="defitem9 != null">`defitem9` = #{defitem9}, </if>
+			<if test="defitem10 != null">`defitem10` = #{defitem10}, </if>
+			<if test="sqdpk != null">`sqdpk` = #{sqdpk}, </if>
+			<if test="assumeOrg != null">`assume_org` = #{assumeOrg}, </if>
+			<if test="assumeDept != null">`assume_dept` = #{assumeDept}, </if>
+			<if test="reductionAmount != null">`reduction_amount` = #{reductionAmount}, </if>
+			<if test="reductionTime != null">`reduction_time` = #{reductionTime}, </if>
+			<if test="overStandard != null">`over_standard` = #{overStandard}, </if>
+			<if test="reimbursePerson != null">`reimburse_person` = #{reimbursePerson}, </if>
+			<if test="agencyStatus != null">`agency_status` = #{agencyStatus}, </if>
+			<if test="overBudgetStatus != null">`over_budget_status` = #{overBudgetStatus}, </if>
+			<if test="payAmount1 != null">`pay_amount1` = #{payAmount1}, </if>
+			<if test="payAmount2 != null">`pay_amount2` = #{payAmount2}, </if>
+			<if test="adminOrg != null">`admin_org` = #{adminOrg}, </if>
+			<if test="financeOrg != null">`finance_org` = #{financeOrg}, </if>
+			<if test="reimburseDept != null">`reimburse_dept` = #{reimburseDept}, </if>
+			<if test="currency != null">`currency` = #{currency}, </if>
+			<if test="exchangeRate != null">`exchange_rate` = #{exchangeRate}, </if>
+			<if test="localMoney != null">`local_money` = #{localMoney}, </if>
+			<if test="restPayMoney != null">`rest_pay_money` = #{restPayMoney}, </if>
+			<if test="userOrg != null">`user_org` = #{userOrg}, </if>
+			<if test="payType != null">`pay_type` = #{payType}, </if>
+			<if test="reveiveType != null">`reveive_type` = #{reveiveType}, </if>
+			<if test="billnum != null">`billNum` = #{billnum}, </if>
+			<if test="assignid != null">`assignid` = #{assignid}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from node_expense where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from node_expense where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

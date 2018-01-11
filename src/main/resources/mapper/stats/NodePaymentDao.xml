@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yonyou.modules.stats.dao.NodePaymentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.yonyou.modules.stats.entity.NodePaymentEntity" id="nodePaymentMap">
+        <result property="id" column="id"/>
+        <result property="pk" column="pk"/>
+        <result property="userId" column="user_id"/>
+        <result property="money" column="money"/>
+        <result property="hkye" column="hkye"/>
+        <result property="hkzt" column="hkzt"/>
+        <result property="descript" column="descript"/>
+        <result property="szxm" column="szxm"/>
+        <result property="project" column="project"/>
+        <result property="bankaccountkey" column="bankAccountKey"/>
+        <result property="bankaccount" column="bankAccount"/>
+        <result property="dealdate" column="dealdate"/>
+        <result property="billstatus" column="billstatus"/>
+        <result property="pkBill" column="pk_bill"/>
+        <result property="defitem1" column="defitem1"/>
+        <result property="defitem2" column="defitem2"/>
+        <result property="defitem3" column="defitem3"/>
+        <result property="defitem4" column="defitem4"/>
+        <result property="defitem5" column="defitem5"/>
+        <result property="defitem6" column="defitem6"/>
+        <result property="defitem7" column="defitem7"/>
+        <result property="defitem8" column="defitem8"/>
+        <result property="defitem9" column="defitem9"/>
+        <result property="defitem10" column="defitem10"/>
+        <result property="defitem11" column="defitem11"/>
+        <result property="defitem12" column="defitem12"/>
+        <result property="defitem13" column="defitem13"/>
+        <result property="defitem14" column="defitem14"/>
+        <result property="defitem15" column="defitem15"/>
+        <result property="defitem16" column="defitem16"/>
+        <result property="defitem17" column="defitem17"/>
+        <result property="defitem18" column="defitem18"/>
+        <result property="defitem19" column="defitem19"/>
+        <result property="defitem20" column="defitem20"/>
+        <result property="ts" column="ts"/>
+        <result property="valid" column="valid"/>
+        <result property="billtype" column="billType"/>
+        <result property="errormsg" column="errorMsg"/>
+        <result property="djlxpk" column="djlxpk"/>
+        <result property="overBudgetStatus" column="over_budget_status"/>
+        <result property="sqdpk" column="sqdpk"/>
+        <result property="assumeOrg" column="assume_org"/>
+        <result property="assumeDept" column="assume_dept"/>
+        <result property="adminOrg" column="admin_org"/>
+        <result property="financeOrg" column="finance_org"/>
+        <result property="currency" column="currency"/>
+        <result property="exchangeRate" column="exchange_rate"/>
+        <result property="localMoney" column="local_money"/>
+        <result property="restMoney" column="rest_money"/>
+        <result property="loanDept" column="loan_dept"/>
+        <result property="loanUser" column="loan_user"/>
+        <result property="payType" column="pay_type"/>
+        <result property="reveiveType" column="reveive_type"/>
+        <result property="billnum" column="billNum"/>
+        <result property="assignid" column="assignid"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.yonyou.modules.stats.entity.NodePaymentEntity">
+		select * from node_payment where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.yonyou.modules.stats.entity.NodePaymentEntity">
+		select * from node_payment
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from node_payment 
+	</select>
+	 
+	<insert id="save" parameterType="com.yonyou.modules.stats.entity.NodePaymentEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into node_payment
+		(
+			`pk`, 
+			`user_id`, 
+			`money`, 
+			`hkye`, 
+			`hkzt`, 
+			`descript`, 
+			`szxm`, 
+			`project`, 
+			`bankAccountKey`, 
+			`bankAccount`, 
+			`dealdate`, 
+			`billstatus`, 
+			`pk_bill`, 
+			`defitem1`, 
+			`defitem2`, 
+			`defitem3`, 
+			`defitem4`, 
+			`defitem5`, 
+			`defitem6`, 
+			`defitem7`, 
+			`defitem8`, 
+			`defitem9`, 
+			`defitem10`, 
+			`defitem11`, 
+			`defitem12`, 
+			`defitem13`, 
+			`defitem14`, 
+			`defitem15`, 
+			`defitem16`, 
+			`defitem17`, 
+			`defitem18`, 
+			`defitem19`, 
+			`defitem20`, 
+			`ts`, 
+			`valid`, 
+			`billType`, 
+			`errorMsg`, 
+			`djlxpk`, 
+			`over_budget_status`, 
+			`sqdpk`, 
+			`assume_org`, 
+			`assume_dept`, 
+			`admin_org`, 
+			`finance_org`, 
+			`currency`, 
+			`exchange_rate`, 
+			`local_money`, 
+			`rest_money`, 
+			`loan_dept`, 
+			`loan_user`, 
+			`pay_type`, 
+			`reveive_type`, 
+			`billNum`, 
+			`assignid`
+		)
+		values
+		(
+			#{pk}, 
+			#{userId}, 
+			#{money}, 
+			#{hkye}, 
+			#{hkzt}, 
+			#{descript}, 
+			#{szxm}, 
+			#{project}, 
+			#{bankaccountkey}, 
+			#{bankaccount}, 
+			#{dealdate}, 
+			#{billstatus}, 
+			#{pkBill}, 
+			#{defitem1}, 
+			#{defitem2}, 
+			#{defitem3}, 
+			#{defitem4}, 
+			#{defitem5}, 
+			#{defitem6}, 
+			#{defitem7}, 
+			#{defitem8}, 
+			#{defitem9}, 
+			#{defitem10}, 
+			#{defitem11}, 
+			#{defitem12}, 
+			#{defitem13}, 
+			#{defitem14}, 
+			#{defitem15}, 
+			#{defitem16}, 
+			#{defitem17}, 
+			#{defitem18}, 
+			#{defitem19}, 
+			#{defitem20}, 
+			#{ts}, 
+			#{valid}, 
+			#{billtype}, 
+			#{errormsg}, 
+			#{djlxpk}, 
+			#{overBudgetStatus}, 
+			#{sqdpk}, 
+			#{assumeOrg}, 
+			#{assumeDept}, 
+			#{adminOrg}, 
+			#{financeOrg}, 
+			#{currency}, 
+			#{exchangeRate}, 
+			#{localMoney}, 
+			#{restMoney}, 
+			#{loanDept}, 
+			#{loanUser}, 
+			#{payType}, 
+			#{reveiveType}, 
+			#{billnum}, 
+			#{assignid}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.yonyou.modules.stats.entity.NodePaymentEntity">
+		update node_payment 
+		<set>
+			<if test="pk != null">`pk` = #{pk}, </if>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="money != null">`money` = #{money}, </if>
+			<if test="hkye != null">`hkye` = #{hkye}, </if>
+			<if test="hkzt != null">`hkzt` = #{hkzt}, </if>
+			<if test="descript != null">`descript` = #{descript}, </if>
+			<if test="szxm != null">`szxm` = #{szxm}, </if>
+			<if test="project != null">`project` = #{project}, </if>
+			<if test="bankaccountkey != null">`bankAccountKey` = #{bankaccountkey}, </if>
+			<if test="bankaccount != null">`bankAccount` = #{bankaccount}, </if>
+			<if test="dealdate != null">`dealdate` = #{dealdate}, </if>
+			<if test="billstatus != null">`billstatus` = #{billstatus}, </if>
+			<if test="pkBill != null">`pk_bill` = #{pkBill}, </if>
+			<if test="defitem1 != null">`defitem1` = #{defitem1}, </if>
+			<if test="defitem2 != null">`defitem2` = #{defitem2}, </if>
+			<if test="defitem3 != null">`defitem3` = #{defitem3}, </if>
+			<if test="defitem4 != null">`defitem4` = #{defitem4}, </if>
+			<if test="defitem5 != null">`defitem5` = #{defitem5}, </if>
+			<if test="defitem6 != null">`defitem6` = #{defitem6}, </if>
+			<if test="defitem7 != null">`defitem7` = #{defitem7}, </if>
+			<if test="defitem8 != null">`defitem8` = #{defitem8}, </if>
+			<if test="defitem9 != null">`defitem9` = #{defitem9}, </if>
+			<if test="defitem10 != null">`defitem10` = #{defitem10}, </if>
+			<if test="defitem11 != null">`defitem11` = #{defitem11}, </if>
+			<if test="defitem12 != null">`defitem12` = #{defitem12}, </if>
+			<if test="defitem13 != null">`defitem13` = #{defitem13}, </if>
+			<if test="defitem14 != null">`defitem14` = #{defitem14}, </if>
+			<if test="defitem15 != null">`defitem15` = #{defitem15}, </if>
+			<if test="defitem16 != null">`defitem16` = #{defitem16}, </if>
+			<if test="defitem17 != null">`defitem17` = #{defitem17}, </if>
+			<if test="defitem18 != null">`defitem18` = #{defitem18}, </if>
+			<if test="defitem19 != null">`defitem19` = #{defitem19}, </if>
+			<if test="defitem20 != null">`defitem20` = #{defitem20}, </if>
+			<if test="ts != null">`ts` = #{ts}, </if>
+			<if test="valid != null">`valid` = #{valid}, </if>
+			<if test="billtype != null">`billType` = #{billtype}, </if>
+			<if test="errormsg != null">`errorMsg` = #{errormsg}, </if>
+			<if test="djlxpk != null">`djlxpk` = #{djlxpk}, </if>
+			<if test="overBudgetStatus != null">`over_budget_status` = #{overBudgetStatus}, </if>
+			<if test="sqdpk != null">`sqdpk` = #{sqdpk}, </if>
+			<if test="assumeOrg != null">`assume_org` = #{assumeOrg}, </if>
+			<if test="assumeDept != null">`assume_dept` = #{assumeDept}, </if>
+			<if test="adminOrg != null">`admin_org` = #{adminOrg}, </if>
+			<if test="financeOrg != null">`finance_org` = #{financeOrg}, </if>
+			<if test="currency != null">`currency` = #{currency}, </if>
+			<if test="exchangeRate != null">`exchange_rate` = #{exchangeRate}, </if>
+			<if test="localMoney != null">`local_money` = #{localMoney}, </if>
+			<if test="restMoney != null">`rest_money` = #{restMoney}, </if>
+			<if test="loanDept != null">`loan_dept` = #{loanDept}, </if>
+			<if test="loanUser != null">`loan_user` = #{loanUser}, </if>
+			<if test="payType != null">`pay_type` = #{payType}, </if>
+			<if test="reveiveType != null">`reveive_type` = #{reveiveType}, </if>
+			<if test="billnum != null">`billNum` = #{billnum}, </if>
+			<if test="assignid != null">`assignid` = #{assignid}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from node_payment where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from node_payment where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

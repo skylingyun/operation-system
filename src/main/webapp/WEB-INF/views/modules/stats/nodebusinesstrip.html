@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<#include "/header.html">
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<#if shiro.hasPermission("nodebusinesstrip:save")>
+            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			</#if>
+			<#if shiro.hasPermission("nodebusinesstrip:update")>
+            <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			</#if>
+			<#if shiro.hasPermission("nodebusinesstrip:delete")>
+            <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			</#if>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.pk" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">用户id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.userId" placeholder="用户id"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">出差申请金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.money" placeholder="出差申请金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">城市</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.city" placeholder="城市"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">项目pk</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.zdyhead" placeholder="项目pk"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">项目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.zdyheadvalue" placeholder="项目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">事由</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.descript" placeholder="事由"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">开始时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.startDate" placeholder="开始时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">结束时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.endDate" placeholder="结束时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.ts" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.billstatus" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.reimburstatus" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.pkBill" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.dealdate" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.errormsg" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.valid" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.tagpk" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.isClosed" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.budgetMoney" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">余额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.restMoney" placeholder="余额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">已用金额</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.usedMoney" placeholder="已用金额"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">事项类型</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.matter" placeholder="事项类型"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用项目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.costProject" placeholder="费用项目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据大类</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.djdl" placeholder="单据大类"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据类型编码</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.djlxbm" placeholder="单据类型编码"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据类型名称</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.billtype" placeholder="单据类型名称"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据类型pk</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.djlxpk" placeholder="单据类型pk"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem1" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem2" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem3" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem4" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem5" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem6" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem7" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem8" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem9" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem10" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用承担单位</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.assumeOrg" placeholder="费用承担单位"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">费用承担部门</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.assumeDept" placeholder="费用承担部门"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem11" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem12" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem13" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem14" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem15" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem16" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem17" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem18" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem19" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.defitem20" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.overBudgetStatus" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.adminOrg" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.financeOrg" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.applyDept" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.applyUser" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">单据编号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.billnum" placeholder="单据编号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">指派人id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="nodeBusinessTrip.assignid" placeholder="指派人id"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${request.contextPath}/statics/js/modules/stats/nodebusinesstrip.js?_${.now?long}"></script>
+</body>
+</html>
